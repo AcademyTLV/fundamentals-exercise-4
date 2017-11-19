@@ -12,18 +12,19 @@
       android:id="@+id/btnOpenActivityAsyncTask"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_centerHorizontal="true"
+      android:layout_centerInParent="true"
       android:layout_marginTop="34dp"
-      android:text="@string/btn_async_task"/>
+      android:text="@string/btn_async_task"
+      />
 
   <Button
       android:id="@+id/btnOpenActivityThreadHandler"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_alignParentTop="true"
+      android:layout_below="@+id/btnOpenActivityAsyncTask"
       android:layout_centerHorizontal="true"
-      android:layout_marginTop="150dp"
-      android:text="@string/btn_threads"/>
+      android:text="@string/btn_threads"
+      />
 
 
 </RelativeLayout>
