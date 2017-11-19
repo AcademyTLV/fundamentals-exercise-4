@@ -2,4 +2,7 @@
   <string name="app_name">fundamentals-exercise-4</string>
     <string name="btn_async_task">Open Async Task</string>
   <string name="btn_threads">Threads</string>
+    <string name="btn_create">Create</string>
+  <string name="btn_cancel">Cancel</string>
+  <string name="btn_start">Start</string>
 </resources>

@@ -7,7 +7,13 @@ import android.os.AsyncTask;
  */
 
 public class ColorChangeAsyncTask extends AsyncTask<Integer, Integer, Integer>{
-    
+
+    private IAsyncTaskEvents mIAsyncTaskEvents;
+
+    public ColorChangeAsyncTask(IAsyncTaskEvents aIAsyncTaskEvents) {
+        mIAsyncTaskEvents = aIAsyncTaskEvents;
+    }
+
     @Override
     protected Integer doInBackground(Integer... aIntegers) {
         return null;

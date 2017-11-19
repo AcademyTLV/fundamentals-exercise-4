@@ -8,5 +8,32 @@
     tools:context="tlv.academy.android.fundamentals_exercise_4.AsyncTaskActivity">
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
 
+        <Button
+            android:id="@+id/btnAsyncCreate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/btn_create"/>
+
+        <Button
+            android:id="@+id/btnAsyncStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/btn_start"/>
+
+        <Button
+            android:id="@+id/btnAsyncCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/btn_cancel"/>
+    </LinearLayout>
 </RelativeLayout>
