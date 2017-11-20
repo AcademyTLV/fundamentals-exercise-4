@@ -1,9 +1,7 @@
 package tlv.academy.android.fundamentals_exercise_4;
 
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.SystemClock;
-import android.provider.Settings;
 
 /**
  * Created by danielszasz on 19/11/2017.
@@ -19,6 +17,7 @@ public class ColorChangeAsyncTask extends AsyncTask<Integer, Integer, Integer>{
 
     @Override
     protected Integer doInBackground(Integer... aIntegers) {
+
         int iStart;
         int iEnd;
         if (aIntegers.length == 2) {
@@ -35,6 +34,17 @@ public class ColorChangeAsyncTask extends AsyncTask<Integer, Integer, Integer>{
         }
 
         return iEnd;
+
+/*
+        int startColor = aIntegers[0];
+        int endColor = aIntegers[1];
+        while (startColor < endColor) {
+            SystemClock.sleep(200);
+            int nextColor = aIntegers[0] += 10;
+            publishProgress(nextColor);
+        }
+        return null;
+        */
     }
 
     @Override
@@ -60,16 +70,22 @@ public class ColorChangeAsyncTask extends AsyncTask<Integer, Integer, Integer>{
         if (mIAsyncTaskEvents != null){
             mIAsyncTaskEvents.onProgressUpdate(values[0]);
         }
-
     }
 
     @Override
     protected void onCancelled(Integer aInteger) {
         super.onCancelled(aInteger);
+        if (mIAsyncTaskEvents != null){
+            mIAsyncTaskEvents.onCancel();
+        }
+
     }
 
     @Override
     protected void onCancelled() {
         super.onCancelled();
+        if (mIAsyncTaskEvents != null){
+            mIAsyncTaskEvents.onCancel();
+        }
     }
 }

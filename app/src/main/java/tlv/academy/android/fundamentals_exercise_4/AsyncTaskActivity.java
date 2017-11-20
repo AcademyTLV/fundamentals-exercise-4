@@ -16,6 +16,7 @@ public class AsyncTaskActivity extends Activity implements IAsyncTaskEvents{
     private TextView mTxtValue;
 
     private ColorChangeAsyncTask mColorChangeAsyncTask;
+    private View mRootView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,8 @@ public class AsyncTaskActivity extends Activity implements IAsyncTaskEvents{
 
 
         setContentView(R.layout.activity_async_task);
+
+        mRootView = findViewById(R.id.root);
 
         mBtnCreate = findViewById(R.id.btnAsyncCreate);
         mBtnStart = findViewById(R.id.btnAsyncStart);
@@ -69,6 +72,12 @@ public class AsyncTaskActivity extends Activity implements IAsyncTaskEvents{
     public void onProgressUpdate(Integer aInteger) {
         mTxtValue.setText( String.valueOf( aInteger));
 
+//        mRootView.setBackgroundColor(aInteger);
+    }
+
+    @Override
+    public void onCancel() {
+        Toast.makeText( this, getString(R.string.msg_oncancel), Toast.LENGTH_SHORT).show();
     }
 
 
@@ -79,11 +88,23 @@ public class AsyncTaskActivity extends Activity implements IAsyncTaskEvents{
     private void doAsyncTaskStart(){
         Integer integerStart;
         Integer integerEnd;
+//        Integer mColorStart;
+//        Integer mColorEnd;
+
+        if (mColorChangeAsyncTask == null) {
+            Toast.makeText(this, "must click \"create\" task first", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
 
         integerStart = 1;
         integerEnd = 100;
 
         mColorChangeAsyncTask.execute( integerStart, integerEnd);
+//        mColorStart = Color.BLACK;
+//        mColorEnd = Color.WHITE;
+
+//        mColorChangeAsyncTask.execute( mColorStart, mColorEnd);
     }
 
     private void doAsyncTaskCancel(){
