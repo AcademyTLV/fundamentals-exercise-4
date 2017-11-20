@@ -1,28 +1,31 @@
 package tlv.academy.android.fundamentals_exercise_4.activities;
 
 import android.app.Activity;
+import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import tlv.academy.android.fundamentals_exercise_4.counterasynctask.CounterAsyncTask;
-import tlv.academy.android.fundamentals_exercise_4.counterasynctask.IAsyncTaskEvents;
 import tlv.academy.android.fundamentals_exercise_4.R;
 
-public class AsyncTaskActivity extends Activity implements IAsyncTaskEvents {
+public class AsyncTaskActivity extends Activity {
 
+    private Context mContext;
     private Button mBtnCreate;
     private Button mBtnStart;
     private Button mBtnCancel;
     private TextView mTxtValue;
 
-    private CounterAsyncTask mCounterAsyncTask;
+    private InsideCounterAsyncTask mCounterAsyncTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext = this;
 
         setContentView(R.layout.activity_async_task);
 
@@ -57,29 +60,9 @@ public class AsyncTaskActivity extends Activity implements IAsyncTaskEvents {
         }
     };
 
-    @Override
-    public void onPreExecute() {
-        Toast.makeText(this, getString(R.string.msg_preexecute), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onPostExecute() {
-        Toast.makeText(this, getString(R.string.msg_postexecute), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onProgressUpdate(Integer aInteger) {
-        mTxtValue.setText(String.valueOf(aInteger));
-    }
-
-    @Override
-    public void onCancel() {
-        Toast.makeText(this, getString(R.string.msg_oncancel), Toast.LENGTH_SHORT).show();
-    }
-
 
     private void doAsyncTaskCreate() {
-        mCounterAsyncTask = new CounterAsyncTask(this);
+        mCounterAsyncTask = new InsideCounterAsyncTask();
     }
 
     private void doAsyncTaskStart() {
@@ -100,4 +83,64 @@ public class AsyncTaskActivity extends Activity implements IAsyncTaskEvents {
     private void doAsyncTaskCancel() {
         mCounterAsyncTask.cancel(true);
     }
+
+    class InsideCounterAsyncTask extends AsyncTask<Integer, Integer, Integer> {
+
+
+        private InsideCounterAsyncTask() {
+        }
+
+        @Override
+        protected Integer doInBackground(Integer... aIntegers) {
+
+            int iStart;
+            int iEnd;
+            if (aIntegers.length == 2) {
+                iStart = aIntegers[0];
+                iEnd = aIntegers[1];
+            } else {
+                iStart = 0;
+                iEnd = 100;
+            }
+
+            for (int iStep = iStart; iStep < iEnd; iStep++) {
+                SystemClock.sleep(250);
+                publishProgress(iStep);
+            }
+
+            return iEnd;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Toast.makeText(mContext, mContext.getString(R.string.msg_preexecute), Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        protected void onPostExecute(Integer aInteger) {
+            super.onPostExecute(aInteger);
+            Toast.makeText(mContext, mContext.getString(R.string.msg_postexecute), Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+
+            mTxtValue.setText(String.valueOf(values));
+        }
+
+        @Override
+        protected void onCancelled(Integer aInteger) {
+            super.onCancelled(aInteger);
+            Toast.makeText(mContext, mContext.getString(R.string.msg_oncancel), Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+            Toast.makeText(mContext, mContext.getString(R.string.msg_oncancel), Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }
