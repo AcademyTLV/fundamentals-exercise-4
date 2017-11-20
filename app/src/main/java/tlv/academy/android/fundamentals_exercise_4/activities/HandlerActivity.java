@@ -18,9 +18,9 @@ public class HandlerActivity extends AppCompatActivity implements View.OnClickLi
     public static final int END_COLOR = Color.WHITE;
     private static final String CURRENT_COLOR_KEY = "current_key";
 
-    MySimpleAsyncTask mColorChangingTask;
-    View mRootView;
-    int currentColor;
+    private MySimpleAsyncTask mColorChangingTask;
+    private View mRootView;
+    private int currentColor;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
