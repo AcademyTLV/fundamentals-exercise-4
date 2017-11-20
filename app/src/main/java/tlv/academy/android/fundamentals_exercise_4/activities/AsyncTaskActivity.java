@@ -81,7 +81,9 @@ public class AsyncTaskActivity extends Activity {
     }
 
     private void doAsyncTaskCancel() {
-        mCounterAsyncTask.cancel(true);
+        if (mCounterAsyncTask != null) {
+            mCounterAsyncTask.cancel(true);
+        }
     }
 
     class InsideCounterAsyncTask extends AsyncTask<Integer, Integer, Integer> {
