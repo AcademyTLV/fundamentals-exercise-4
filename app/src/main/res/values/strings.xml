@@ -7,4 +7,5 @@
   <string name="btn_start">Start</string>
   <string name="msg_preexecute">Pre execute run</string>
   <string name="msg_postexecute">Post execute run</string>
+    <string name="msg_oncancel">Async Task canceled</string>
 </resources>
