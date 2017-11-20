@@ -1,17 +1,19 @@
-package tlv.academy.android.fundamentals_exercise_4;
+package tlv.academy.android.fundamentals_exercise_4.counterasynctask;
 
 import android.os.AsyncTask;
 import android.os.SystemClock;
+
+import tlv.academy.android.fundamentals_exercise_4.counterasynctask.IAsyncTaskEvents;
 
 /**
  * Created by danielszasz on 19/11/2017.
  */
 
-public class ColorChangeAsyncTask extends AsyncTask<Integer, Integer, Integer>{
+public class CounterAsyncTask extends AsyncTask<Integer, Integer, Integer> {
 
     private IAsyncTaskEvents mIAsyncTaskEvents;
 
-    public ColorChangeAsyncTask(IAsyncTaskEvents aIAsyncTaskEvents) {
+    public CounterAsyncTask(IAsyncTaskEvents aIAsyncTaskEvents) {
         mIAsyncTaskEvents = aIAsyncTaskEvents;
     }
 
@@ -28,29 +30,18 @@ public class ColorChangeAsyncTask extends AsyncTask<Integer, Integer, Integer>{
             iEnd = 100;
         }
 
-        for (int iStep = iStart; iStep < iEnd; iStep++){
-            SystemClock.sleep( 250);
-            publishProgress( iStep);
+        for (int iStep = iStart; iStep < iEnd; iStep++) {
+            SystemClock.sleep(250);
+            publishProgress(iStep);
         }
 
         return iEnd;
-
-/*
-        int startColor = aIntegers[0];
-        int endColor = aIntegers[1];
-        while (startColor < endColor) {
-            SystemClock.sleep(200);
-            int nextColor = aIntegers[0] += 10;
-            publishProgress(nextColor);
-        }
-        return null;
-        */
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        if (mIAsyncTaskEvents != null){
+        if (mIAsyncTaskEvents != null) {
             mIAsyncTaskEvents.onPreExecute();
         }
     }
@@ -58,7 +49,7 @@ public class ColorChangeAsyncTask extends AsyncTask<Integer, Integer, Integer>{
     @Override
     protected void onPostExecute(Integer aInteger) {
         super.onPostExecute(aInteger);
-        if (mIAsyncTaskEvents != null){
+        if (mIAsyncTaskEvents != null) {
             mIAsyncTaskEvents.onPostExecute();
         }
     }
@@ -67,7 +58,7 @@ public class ColorChangeAsyncTask extends AsyncTask<Integer, Integer, Integer>{
     protected void onProgressUpdate(Integer... values) {
         super.onProgressUpdate(values);
 
-        if (mIAsyncTaskEvents != null){
+        if (mIAsyncTaskEvents != null) {
             mIAsyncTaskEvents.onProgressUpdate(values[0]);
         }
     }
@@ -75,7 +66,7 @@ public class ColorChangeAsyncTask extends AsyncTask<Integer, Integer, Integer>{
     @Override
     protected void onCancelled(Integer aInteger) {
         super.onCancelled(aInteger);
-        if (mIAsyncTaskEvents != null){
+        if (mIAsyncTaskEvents != null) {
             mIAsyncTaskEvents.onCancel();
         }
 
@@ -84,7 +75,7 @@ public class ColorChangeAsyncTask extends AsyncTask<Integer, Integer, Integer>{
     @Override
     protected void onCancelled() {
         super.onCancelled();
-        if (mIAsyncTaskEvents != null){
+        if (mIAsyncTaskEvents != null) {
             mIAsyncTaskEvents.onCancel();
         }
     }

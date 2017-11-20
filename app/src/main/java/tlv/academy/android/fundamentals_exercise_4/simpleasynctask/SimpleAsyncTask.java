@@ -25,7 +25,8 @@ public abstract class SimpleAsyncTask {
      */
     protected abstract void execute();
 
-    protected void onProgress(){}
+    protected void onProgress() {
+    }
 
     protected abstract void publishProgress();
 

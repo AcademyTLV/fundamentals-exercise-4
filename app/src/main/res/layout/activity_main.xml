@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="tlv.academy.android.fundamentals_exercise_4.MainActivity"
+    tools:context="tlv.academy.android.fundamentals_exercise_4.activities.MainActivity"
     >
 
   <Button

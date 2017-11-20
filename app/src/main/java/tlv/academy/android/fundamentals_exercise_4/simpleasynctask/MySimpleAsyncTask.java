@@ -53,16 +53,19 @@ public abstract class MySimpleAsyncTask extends SimpleAsyncTask {
         new Handler(Looper.getMainLooper()).post(runnable);
     }
 
-    @Override public void cancel() {
+    @Override
+    public void cancel() {
         mInterrupted = true;
         if (mBackgroundThread != null) {
             mBackgroundThread.interrupt();
         }
     }
 
-    @Override protected void publishProgress() {
+    @Override
+    protected void publishProgress() {
         runOnUiThread(new Runnable() {
-            @Override public void run() {
+            @Override
+            public void run() {
                 onProgress();
             }
         });
