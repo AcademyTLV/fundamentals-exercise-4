@@ -36,4 +36,13 @@
             android:layout_weight="1"
             android:text="@string/btn_cancel"/>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtAsyncValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="10"
+        android:textSize="30sp"
+        android:textStyle="bold"/>
 </RelativeLayout>

@@ -5,4 +5,6 @@
     <string name="btn_create">Create</string>
   <string name="btn_cancel">Cancel</string>
   <string name="btn_start">Start</string>
+  <string name="msg_preexecute">Pre execute run</string>
+  <string name="msg_postexecute">Post execute run</string>
 </resources>

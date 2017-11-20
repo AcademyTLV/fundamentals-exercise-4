@@ -5,12 +5,15 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class AsyncTaskActivity extends Activity implements IAsyncTaskEvents{
 
     private Button mBtnCreate;
     private Button mBtnStart;
     private Button mBtnCancel;
+    private TextView mTxtValue;
 
     private ColorChangeAsyncTask mColorChangeAsyncTask;
 
@@ -24,6 +27,7 @@ public class AsyncTaskActivity extends Activity implements IAsyncTaskEvents{
         mBtnCreate = findViewById(R.id.btnAsyncCreate);
         mBtnStart = findViewById(R.id.btnAsyncStart);
         mBtnCancel = findViewById(R.id.btnAsyncCancel);
+        mTxtValue = findViewById(R.id.txtAsyncValue);
 
         mBtnCreate.setOnClickListener( OnClickCreate);
         mBtnStart.setOnClickListener( OnClickStart);
@@ -53,16 +57,17 @@ public class AsyncTaskActivity extends Activity implements IAsyncTaskEvents{
 
     @Override
     public void onPreExecute() {
-
+        Toast.makeText( this, getString(R.string.msg_preexecute), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onPostExecute() {
-
+        Toast.makeText( this, getString(R.string.msg_postexecute), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onProgressUpdate(Integer aInteger) {
+        mTxtValue.setText( String.valueOf( aInteger));
 
     }
 
@@ -72,13 +77,13 @@ public class AsyncTaskActivity extends Activity implements IAsyncTaskEvents{
     }
 
     private void doAsyncTaskStart(){
-        Integer mColorStart;
-        Integer mColorEnd;
+        Integer integerStart;
+        Integer integerEnd;
 
-        mColorStart = Color.WHITE;
-        mColorEnd = Color.BLACK;
+        integerStart = 1;
+        integerEnd = 100;
 
-        mColorChangeAsyncTask.execute( mColorStart, mColorEnd);
+        mColorChangeAsyncTask.execute( integerStart, integerEnd);
     }
 
     private void doAsyncTaskCancel(){
