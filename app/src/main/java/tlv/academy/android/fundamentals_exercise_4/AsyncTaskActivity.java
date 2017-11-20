@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class AsyncTaskActivity extends Activity implements IAsyncTaskEvents{
 
@@ -13,6 +14,7 @@ public class AsyncTaskActivity extends Activity implements IAsyncTaskEvents{
     private Button mBtnCancel;
 
     private ColorChangeAsyncTask mColorChangeAsyncTask;
+    private View mRootView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +22,8 @@ public class AsyncTaskActivity extends Activity implements IAsyncTaskEvents{
 
 
         setContentView(R.layout.activity_async_task);
+
+        mRootView = findViewById(R.id.root);
 
         mBtnCreate = findViewById(R.id.btnAsyncCreate);
         mBtnStart = findViewById(R.id.btnAsyncStart);
@@ -58,12 +62,11 @@ public class AsyncTaskActivity extends Activity implements IAsyncTaskEvents{
 
     @Override
     public void onPostExecute() {
-
     }
 
     @Override
     public void onProgressUpdate(Integer aInteger) {
-
+        mRootView.setBackgroundColor(aInteger);
     }
 
 
@@ -75,9 +78,13 @@ public class AsyncTaskActivity extends Activity implements IAsyncTaskEvents{
         Integer mColorStart;
         Integer mColorEnd;
 
-        mColorStart = Color.WHITE;
-        mColorEnd = Color.BLACK;
+        mColorStart = Color.BLACK;
+        mColorEnd = Color.WHITE;
 
+        if (mColorChangeAsyncTask == null) {
+            Toast.makeText(this, "must click start task first", Toast.LENGTH_SHORT).show();
+            return;
+        }
         mColorChangeAsyncTask.execute( mColorStart, mColorEnd);
     }
 
