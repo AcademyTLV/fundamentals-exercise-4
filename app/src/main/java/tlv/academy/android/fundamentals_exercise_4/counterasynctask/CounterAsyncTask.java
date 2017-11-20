@@ -3,8 +3,6 @@ package tlv.academy.android.fundamentals_exercise_4.counterasynctask;
 import android.os.AsyncTask;
 import android.os.SystemClock;
 
-import tlv.academy.android.fundamentals_exercise_4.counterasynctask.IAsyncTaskEvents;
-
 /**
  * Created by danielszasz on 19/11/2017.
  */
