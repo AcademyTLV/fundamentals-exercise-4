@@ -2,4 +2,10 @@
   <string name="app_name">fundamentals-exercise-4</string>
     <string name="btn_async_task">Open Async Task</string>
   <string name="btn_threads">Threads</string>
+    <string name="btn_create">Create</string>
+  <string name="btn_cancel">Cancel</string>
+  <string name="btn_start">Start</string>
+  <string name="msg_preexecute">Pre execute run</string>
+  <string name="msg_postexecute">Post execute run</string>
+    <string name="msg_oncancel">Async Task canceled</string>
 </resources>
