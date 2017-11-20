@@ -24,4 +24,13 @@ public abstract class SimpleAsyncTask {
      * Execute Async Task
      */
     protected abstract void execute();
+
+    protected void onProgress(){}
+
+    protected abstract void publishProgress();
+
+    /**
+     * cancel current task
+     */
+    public abstract void cancel();
 }

@@ -8,6 +8,9 @@ import android.os.Looper;
  */
 
 public abstract class MySimpleAsyncTask extends SimpleAsyncTask {
+    private Thread mBackgroundThread;
+    private volatile boolean mInterrupted = false;
+
     /**
      * Runs on the UI thread before {@link #doInBackground}.
      */
@@ -24,12 +27,12 @@ public abstract class MySimpleAsyncTask extends SimpleAsyncTask {
     protected abstract void onPostExecute();
 
     @Override
-    protected void execute() {
+    public void execute() {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 onPreExecute();
-                new Thread() {
+                mBackgroundThread = new Thread("Handler_executor_thread") {
                     @Override
                     public void run() {
                         doInBackground();
@@ -40,12 +43,32 @@ public abstract class MySimpleAsyncTask extends SimpleAsyncTask {
                             }
                         });
                     }
-                }.start();
+                };
+                mBackgroundThread.start();
             }
         });
     }
 
     private void runOnUiThread(Runnable runnable) {
         new Handler(Looper.getMainLooper()).post(runnable);
+    }
+
+    @Override public void cancel() {
+        mInterrupted = true;
+        if (mBackgroundThread != null) {
+            mBackgroundThread.interrupt();
+        }
+    }
+
+    @Override protected void publishProgress() {
+        runOnUiThread(new Runnable() {
+            @Override public void run() {
+                onProgress();
+            }
+        });
+    }
+
+    protected boolean isInterrupted() {
+        return mInterrupted;
     }
 }
