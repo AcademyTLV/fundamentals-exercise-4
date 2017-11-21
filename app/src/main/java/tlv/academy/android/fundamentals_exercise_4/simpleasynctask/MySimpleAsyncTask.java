@@ -7,9 +7,8 @@ import android.os.Looper;
  * Created by rl98880 on 19/11/2017.
  */
 
-public abstract class MySimpleAsyncTask extends SimpleAsyncTask {
+public abstract class MySimpleAsyncTask<Param> extends SimpleAsyncTask<Param> {
     private Thread mBackgroundThread;
-    private volatile boolean mInterrupted = false;
 
     /**
      * Runs on the UI thread before {@link #doInBackground}.
@@ -19,7 +18,7 @@ public abstract class MySimpleAsyncTask extends SimpleAsyncTask {
     /**
      * Runs on new thread after {@link #onPostExecute()} and before {@link #onPostExecute()}.
      */
-    protected abstract void doInBackground();
+    protected abstract Param doInBackground();
 
     /**
      * Runs on the UI thread after {@link #doInBackground}
@@ -55,23 +54,20 @@ public abstract class MySimpleAsyncTask extends SimpleAsyncTask {
 
     @Override
     public void cancel() {
-        mInterrupted = true;
+        mCancelled = true;
         if (mBackgroundThread != null) {
             mBackgroundThread.interrupt();
         }
     }
 
     @Override
-    protected void publishProgress() {
+    protected void publishProgress(final Param... values) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                onProgress();
+                onProgressUpdate(values);
             }
         });
     }
 
-    protected boolean isInterrupted() {
-        return mInterrupted;
-    }
 }

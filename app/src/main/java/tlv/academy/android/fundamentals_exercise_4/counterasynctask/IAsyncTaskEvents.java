@@ -9,7 +9,7 @@ public interface IAsyncTaskEvents {
 
     void onPostExecute();
 
-    void onProgressUpdate(Integer aInteger);
+    void onProgressUpdate(Integer integer);
 
     void onCancel();
 }

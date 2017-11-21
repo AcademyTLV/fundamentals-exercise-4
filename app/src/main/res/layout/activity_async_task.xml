@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/root"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="tlv.academy.android.fundamentals_exercise_4.activities.AsyncTaskActivity">
+    android:orientation="vertical"
+    android:padding="24dp">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <Button
@@ -21,28 +17,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/btn_create"/>
+            android:text="@string/btn_create" />
 
         <Button
             android:id="@+id/btnAsyncStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/btn_start"/>
+            android:text="@string/btn_start" />
 
         <Button
             android:id="@+id/btnAsyncCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/btn_cancel"/>
+            android:text="@string/btn_cancel" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/txtAsyncValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textSize="30sp"
-        android:textStyle="bold"/>
-</RelativeLayout>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_margin="8dp"
+        android:layout_weight="1"
+        android:background="@color/aqua"
+        android:gravity="center"
+        android:padding="48dp"
+        android:textSize="50sp"
+        android:textStyle="bold" />
+</LinearLayout>

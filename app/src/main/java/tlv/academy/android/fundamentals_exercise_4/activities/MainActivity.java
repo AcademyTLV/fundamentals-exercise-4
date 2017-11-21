@@ -1,6 +1,5 @@
 package tlv.academy.android.fundamentals_exercise_4.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -8,7 +7,7 @@ import android.view.View;
 
 import tlv.academy.android.fundamentals_exercise_4.R;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class  MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "MainActivity";
 
@@ -25,11 +24,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.btnOpenActivityAsyncTask:
                 Log.i(TAG, "onClick: opening AsyncTaskImplementation");
-                startActivity(new Intent(v.getContext(), AsyncTaskActivity.class));
+                AsyncTaskActivity.start(v.getContext());
                 break;
             case R.id.btnOpenActivityThreadHandler:
                 Log.i(TAG, "onClick: opening Hander Implementation");
-                startActivity(new Intent(v.getContext(), HandlerActivity.class));
+                ThreadsActivity.start(v.getContext());
                 break;
         }
     }

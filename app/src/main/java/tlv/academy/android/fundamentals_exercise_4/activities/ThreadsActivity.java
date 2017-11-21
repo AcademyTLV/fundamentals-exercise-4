@@ -1,31 +1,34 @@
 package tlv.academy.android.fundamentals_exercise_4.activities;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import tlv.academy.android.fundamentals_exercise_4.counterasynctask.CounterAsyncTask;
-import tlv.academy.android.fundamentals_exercise_4.counterasynctask.IAsyncTaskEvents;
 import tlv.academy.android.fundamentals_exercise_4.R;
+import tlv.academy.android.fundamentals_exercise_4.counterasynctask.IAsyncTaskEvents;
+import tlv.academy.android.fundamentals_exercise_4.simpleasynctask.MySimpleAsyncTask;
 
-public class AsyncTaskActivity extends Activity implements IAsyncTaskEvents, View.OnClickListener {
+public class ThreadsActivity extends AppCompatActivity implements View.OnClickListener, IAsyncTaskEvents {
+    private static final String TAG = "ThreadsActivity";
 
-    private static final String KEY_STRING = "KEY_STRING";
+
     private Button mBtnCreate;
     private Button mBtnStart;
     private Button mBtnCancel;
     private TextView mTxtValue;
 
-    private CounterAsyncTask mAsyncTask;
+    private MySimpleAsyncTask mAsyncTask;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_async_task);
         setContentView(R.layout.activity_async_task);
 
         mBtnCreate = findViewById(R.id.btnAsyncCreate);
@@ -56,7 +59,7 @@ public class AsyncTaskActivity extends Activity implements IAsyncTaskEvents, Vie
 
     private void doAsyncTaskCreate() {
         Toast.makeText(this, getString(R.string.msg_oncreate), Toast.LENGTH_SHORT).show();
-        mAsyncTask = new CounterAsyncTask(this);
+        mAsyncTask = new MyCounterAsynTaskImpl(this);
     }
 
 
@@ -64,15 +67,13 @@ public class AsyncTaskActivity extends Activity implements IAsyncTaskEvents, Vie
         if ((mAsyncTask == null) || (mAsyncTask.isCancelled())) {
             Toast.makeText(this, R.string.msg_should_create_task, Toast.LENGTH_SHORT).show();
         } else {
-        Toast.makeText(this, getString(R.string.msg_onstart), Toast.LENGTH_SHORT).show();
-            mAsyncTask.execute(1, 10);
+            mAsyncTask.execute();
         }
     }
 
     private void doAsyncTaskCancel() {
-        mAsyncTask.cancel(true);
+        mAsyncTask.cancel();
     }
-
 
     /***
      // IAsyncTaskEvent's methods - start:
@@ -107,13 +108,16 @@ public class AsyncTaskActivity extends Activity implements IAsyncTaskEvents, Vie
     @Override
     protected void onDestroy() {
         if (mAsyncTask != null) {
-            mAsyncTask.cancel(false);
+            mAsyncTask.cancel();
             mAsyncTask = null;
         }
         super.onDestroy();
     }
 
     public static void start(Context context) {
-        context.startActivity(new Intent(context, AsyncTaskActivity.class));
+        context.startActivity(new Intent(context, ThreadsActivity.class));
     }
 }
+
+
+

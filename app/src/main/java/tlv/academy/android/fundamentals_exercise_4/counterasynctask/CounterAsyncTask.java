@@ -1,5 +1,6 @@
 package tlv.academy.android.fundamentals_exercise_4.counterasynctask;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.SystemClock;
 
@@ -11,29 +12,31 @@ public class CounterAsyncTask extends AsyncTask<Integer, Integer, Integer> {
 
     private IAsyncTaskEvents mIAsyncTaskEvents;
 
-    public CounterAsyncTask(IAsyncTaskEvents aIAsyncTaskEvents) {
-        mIAsyncTaskEvents = aIAsyncTaskEvents;
+    public CounterAsyncTask(IAsyncTaskEvents iAsyncTaskEvents) {
+        mIAsyncTaskEvents = iAsyncTaskEvents;
     }
 
+
     @Override
-    protected Integer doInBackground(Integer... aIntegers) {
-
-        int iStart;
-        int iEnd;
-        if (aIntegers.length == 2) {
-            iStart = aIntegers[0];
-            iEnd = aIntegers[1];
+    protected Integer doInBackground(Integer... integers) {
+        int start, end;
+        if (integers.length == 2) {
+            start = integers[0];
+            end = integers[1];
         } else {
-            iStart = 0;
-            iEnd = 100;
+            start = 0;
+            end = 10;
         }
 
-        for (int iStep = iStart; iStep < iEnd; iStep++) {
-            SystemClock.sleep(250);
-            publishProgress(iStep);
+        for (int i = start; i <= end; i++) {
+            if(isCancelled()) {
+                return i;
+            }
+            publishProgress(i);
+            SystemClock.sleep(500);
         }
 
-        return iEnd;
+        return end;
     }
 
     @Override
@@ -45,8 +48,8 @@ public class CounterAsyncTask extends AsyncTask<Integer, Integer, Integer> {
     }
 
     @Override
-    protected void onPostExecute(Integer aInteger) {
-        super.onPostExecute(aInteger);
+    protected void onPostExecute(Integer integer) {
+        super.onPostExecute(integer);
         if (mIAsyncTaskEvents != null) {
             mIAsyncTaskEvents.onPostExecute();
         }
@@ -55,7 +58,6 @@ public class CounterAsyncTask extends AsyncTask<Integer, Integer, Integer> {
     @Override
     protected void onProgressUpdate(Integer... values) {
         super.onProgressUpdate(values);
-
         if (mIAsyncTaskEvents != null) {
             mIAsyncTaskEvents.onProgressUpdate(values[0]);
         }
@@ -67,7 +69,6 @@ public class CounterAsyncTask extends AsyncTask<Integer, Integer, Integer> {
         if (mIAsyncTaskEvents != null) {
             mIAsyncTaskEvents.onCancel();
         }
-
     }
 
     @Override
