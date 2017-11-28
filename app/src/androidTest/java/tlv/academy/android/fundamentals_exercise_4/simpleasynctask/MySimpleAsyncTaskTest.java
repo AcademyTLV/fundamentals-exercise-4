@@ -25,9 +25,10 @@ public class MySimpleAsyncTaskTest {
                 }
 
                 @Override
-                protected void doInBackground() {
+                protected Object doInBackground() {
                     assertFalse(isOnUiThread());
                     assertEquals(counter++, 1);
+                    return new Object();
                 }
 
                 @Override
